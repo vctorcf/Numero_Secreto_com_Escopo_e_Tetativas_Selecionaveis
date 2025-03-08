@@ -1,4 +1,4 @@
-function mudarTextoNaTela(id,texto){
+function mudarHTML(id,texto){
    let campo=document.getElementById(id);
    campo.innerHTML = texto;
 }
@@ -16,6 +16,17 @@ function filtrarNumerosRepetidos(lista, numero, vMin, vMax){
         return filtrarNumerosRepetidos(lista, numero, vMin, vMax);
     } else {
         return numero;
+    }
+}
+
+function alterarStatusBotao(id){
+    let botao = document.getElementById(id);
+    if(botao.classList.contains("container__botao-desabilitado")){
+        botao.classList.remove("container__botao-desabilitado");
+        botao.classList.add("container__botao");
+    } else {
+        botao.classList.remove("container__botao");
+        botao.classList.add("container__botao-desabilitado");
     }
 }
 
@@ -40,11 +51,17 @@ function sortear(){
            numeroFiltrado = filtrarNumerosRepetidos(nSorteados,numero,valorMinimo,valorMaximo);
            nSorteados.push(numeroFiltrado);
         }
-        mudarTextoNaTela("resultado",`<label class="texto__paragrafo">Números sorteados: ${nSorteados}</label>`);
+        mudarHTML("resultado",`<label class="texto__paragrafo">Números sorteados: ${nSorteados}</label>`);
     }
+    alterarStatusBotao("btn-sortear");
+    alterarStatusBotao("btn-reiniciar");
 }
 
-
-
-
-
+function reiniciar(){
+    document.getElementById('quantidade').value ='';
+    document.getElementById('de').value ='';
+    document.getElementById('ate').value ='';
+    mudarHTML("resultado",`<label class="texto__paragrafo">Números sorteados:  nenhum até agora</label>`);
+    alterarStatusBotao("btn-sortear");
+    alterarStatusBotao("btn-reiniciar");
+}
